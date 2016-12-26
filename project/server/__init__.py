@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 
-
-import flask_raptor
+import flask_raptor, flask_restless
 
 from os import environ
 from flask import Flask
 
+from .models import *
 from .extensions import sql, cache, mongo, session
 
 class PiCloud(Flask):
@@ -16,7 +17,7 @@ class PiCloud(Flask):
     def configure_app(self):
         self.configure_environment()
         self.configure_extensions()
-        self.configure_rest()
+        self.configure_api()
 
     def configure_environment(self):
         env = environ.get('CONFIG_CLASS', 'develop')
@@ -38,5 +39,7 @@ class PiCloud(Flask):
         flask_raptor.init_app(self)
 
 
-    def configure_rest(self):
-        pass
+    def configure_api(self):
+        api_manager = flask_restless.APIManager(self, flask_sqlalchemy_db=sql)
+
+        # api_manager.create_api()
