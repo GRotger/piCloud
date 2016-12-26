@@ -1,9 +1,11 @@
-from flask import Flask
-app = Flask(__name__)
+# -*- coding: utf-8 -*-
 
-@app.route("/")
-def hello():
-    return "Hello World!"
+from flask_script import Manager
+
+from project.server import PiCloud
+
+app = PiCloud()
 
 if __name__ == "__main__":
-    app.run()
+    manager = Manager(app)
+    manager.run()
