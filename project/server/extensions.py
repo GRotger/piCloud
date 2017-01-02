@@ -12,3 +12,6 @@ mongo = MongoEngine()
 from flask_session import Session
 session = Session()
 
+from .ext import ApiGenerator
+api_generator = ApiGenerator()
+

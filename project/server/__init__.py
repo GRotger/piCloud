@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import flask_raptor, flask_restless
-
 from os import environ
 from flask import Flask, render_template
 
-from .models import *
-from .extensions import sql, cache, mongo, session
+from .extensions import sql, cache, mongo, session, api_generator
 
 class PiCloud(Flask):
 
@@ -18,7 +15,6 @@ class PiCloud(Flask):
         self.configure_folders()
         self.configure_environment()
         self.configure_extensions()
-        self.configure_api()
 
     def configure_folders(self):
         self.template_folder = 'project/server/views'
@@ -40,23 +36,12 @@ class PiCloud(Flask):
 
         session.init_app(self)
 
+        api_generator.init_app(self, sql)
+
         if self.debug:
             from flask_debugtoolbar import DebugToolbarExtension
             DebugToolbarExtension(self)
 
-    def configure_api(self):
-        """
-        Initialize application api
-        """
-
         @self.route('/')
         def welcome():
             return render_template("index.html")
-
-        self.api_manager = flask_restless.APIManager(self, flask_sqlalchemy_db=sql)
-        self.api_manager.create_api(User)
-
-        print "SUPER USEEEER %s" % self.blueprints['usersapi0'].url_prefix
-
-
-
