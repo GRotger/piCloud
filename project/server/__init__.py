@@ -22,7 +22,7 @@ class PiCloud(Flask):
     def configure_environment(self):
         env = environ.get('CONFIG_CLASS', 'develop')
         self.config['CONFIG_CLASS'] = env
-        self.config.from_object('project.server.config.%s' % env)
+        self.config.from_object('project.server.config.%s' % env.capitalize())
 
     def configure_extensions(self):
         """

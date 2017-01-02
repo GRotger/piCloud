@@ -1,3 +1,15 @@
 .idea
 node_modules
-app/bower_components
+
+
+.env
+env
+venv
+temp
+tmp
+__pycache__
+*.pyc
+*.coverage
+.DS_Store
+env.sh
+migrations
