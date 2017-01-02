@@ -4,8 +4,8 @@ from flask_script import Manager
 
 from project.server import PiCloud
 
-app = PiCloud()
+app     = PiCloud()
+manager = Manager(app)
 
 if __name__ == "__main__":
-    manager = Manager(app)
     manager.run()
